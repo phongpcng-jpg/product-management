@@ -26,4 +26,33 @@ public class ProductServiceImpl implements IProductService {
     public List<Product> getAllProducts() {
         return products;
     }
+
+    @Override
+    public Product addProduct(Product product) {
+        products.add(product);
+
+        return product;
+    }
+
+    @Override
+    public Product updateProduct(Long id, Product product) {
+        for (Product p : products) {
+            if (p.getId().equals(id)) {
+
+                p.setName(product.getName());
+
+                p.setPrice(product.getPrice());
+
+                return p;
+            }
+        }
+
+        return null;
+    }
+
+    @Override
+    public boolean deleteProduct(Long id) {
+        
+        return products.removeIf(p -> p.getId().equals(id));
+    }
 }

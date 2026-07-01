@@ -12,6 +12,21 @@ public class ProductServiceImpl implements IProductService {
 
     private final List<Product> products = new ArrayList<>();
 
+    private Long generateNextId() {
+
+        Long maxId = 0L;
+
+        for (Product product : products) {
+
+            if (product.getId() > maxId) {
+                maxId = product.getId();
+            }
+
+        }
+
+        return maxId + 1;
+    }
+
     public ProductServiceImpl() {
 
         products.add(new Product(1L, "Laptop", 25000));
@@ -29,6 +44,9 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public Product addProduct(Product product) {
+
+        product.setId(generateNextId());
+        
         products.add(product);
 
         return product;
